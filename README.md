@@ -1,2 +1,20 @@
 # GithubTeamWork
 Integration For Github and Teamwork
+
+## Introduction: 
+As we all are aware that Github is use for maintaining the code bases. Other than that it has many other features like creating issues, discussions, to-do list, maintaining the project board, tracking the progess as per the sprint, relevant labeling and many other developer's insights. Yes it also provides CI/CD, packaging, release and wikis. I am not going to very detail about the Github. My intent is to point out that Github is best for managing the project Goals/Targets as per Agile techniques or some more developer oritent techniques which actually helps developers/programmers to relate tasks to issues to its PRs and everything to project planning. So in very short term it is a kind of Project Planning and Tracking for the developers/programmers and it is bit difficult for Non-Programmer managers to get hand on it. Particularly when team is large and development is fast or in R&D most of the Managers can't understand anything from such fast paced. 
+In such scenarios I have observed that many organization prefers to use Teamwork. Actually this is not the only reason why Teamwork is preferred in most of the organization. The best part of Teamwork is that it allows Mangers and the Team Leads to easily plan the project as per most of the industry drive Planning types and that too with much ease. Teamwork further allows to view the overall plan of furture and also suggests the diversions at the time of sprint end. It is the one easy tool which could allow to track from high level to very micro level task easily and to all levels of Management. Thus it is often preferrable by the management and the clients to pay the bills. Please note there are many many features of the Teamwork but the focus of this post is not on that.
+As you might have guess that Teamwork is not about code and Github is not about ease for Projet Manager. I have observed in the organization both of these tools are used and this cause burden or bit of more load on Team-leads and developers to maintain planning on both of the tools. Github helps to keep live and correct track as per the code which is associated with issues which are govern by good plans and bordered by milestone to know the progress of the final Objective or Feature to achieve. Github allows developers to make more interactive and fruitful discussion by discussing issues on code and allowing them to interact on it. But this interaction is not reflected on the Teamwork. Team can mostly create tasks and sub-tasks similar to those on the Github and this is how management could track the time and progress. In such cases the track on the Teamwork gets slow which is not fact because Github track is much interactive and faster.
+This cause the problem: 
+1. Managment is not aware of the fast pace development on Github. 
+2. Team-leads does double work.
+3. Management could only see daily time-log but no actual interaction and major difficulties as clearly on github
+4. Ad-hoc managment is further more difficult 
+
+## Solution:
+
+Ofcourse the solution is to bridge the gap between the two by connecting two different API's through set of event and interactions so that other should receive the details of first system. This is what I am doing and I would like to keep it Open-Source. It is not like this the first version. There are many other cloud base system which allows you do this but it has some cost and definitely not Open Source.
+
+## GithubTeamwork Intention:
+
+Here my intention is to write the code and to keep it simple and easily extensible so that even school students could contribute. Thus I have choosen python and the REST API's from both to integrate Github and Teamwork. As soon as I complete some stuff I will go on adding the code to it. I will also create relevant issues, Project Plans, discussions, PRs even for myself and wikis or pages to put explanation of the design and its features. Contribution is always welcome to any of these.
