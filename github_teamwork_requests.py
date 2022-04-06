@@ -3,6 +3,9 @@ import base64
 from stores import *
 from converter import *
 import json
+from constants import Constants
+
+constant = Constants()
 
 
 def git_repos():
@@ -164,63 +167,15 @@ if __name__ == "__main__":
     git_issue_payload = {
         "User-Agent": "chaitanay",
         "Accept": "application/vnd.github.v3+json",
-        "devchait": "your_github_key",
+        "devchait": constant.gh_token,
         "state": "all",
     }
-    issues_urls = "your_url/issues"
+    issues_urls = constant.gh_issue_url
+    print(issues_urls)
     result = git_fetch(issues_urls, git_issue_payload)
     # print_key_values(result)
 
-    tmwork_session = get_tmwork_session(
-        "your_url", "your_teamwork_key"
-    )
-    tmwrk_task_cr_url = "https://devscompany2.teamwork.com/tasklists/2605642/tasks.json"
+    tmwork_session = get_tmwork_session(constant.tm_cmp_url, constant.tm_token)
+    tmwrk_task_cr_url = constant.tm_task_url
     issue_objs = extract_issue_info(result)
     convert_issues_to_tmwrk_task(issue_objs, tmwork_session, tmwrk_task_cr_url)
-    tmwk_task_data = {
-        "todo-item": {
-            "use-defaults": False,
-            "completed": False,
-            "content": "Check landing page design",
-            "tasklistId": 2605642,
-            "creator-id": 0,
-            "notify": False,
-            "responsible-party-id": "0",
-            "start-date": "20210811",
-            "due-date": "20210818",
-            "description": "Task description",
-            "priority": "medium",
-            "progress": 10,
-            "parentTaskId": 0,
-            "tagIds": "1,2",
-            "everyone-must-do": False,
-            "columnId": 0,
-            "estimated-minutes": 150,
-        }
-    }
-    tmwk_task_data2 = {
-        "todo-item": {
-            "tasklistId": 2605642,
-            "use-defaults": False,
-            "completed": False,
-            "creator-id": 0,
-            "priority": "medium",
-            "parentTaskId": 0,
-            "everyone-must-do": False,
-            "estimated-minutes": 200,
-            "responsible-party-id": 0,
-            "progress": 0,
-            "tagIds": 1,
-            "columnId": 0,
-            "notify": False,
-            "start-date": "",
-            "due-date": "",
-            "content": "Finish README",
-            "description": "",
-        }
-    }
-    print(tmwk_task_data2)
-    result = post_tmwork_request(tmwork_session, tmwrk_task_cr_url, tmwk_task_data2)
-    # print_key_values(result)
-    print(result)
-
