@@ -67,7 +67,7 @@ def parse_multi_line(value, variables, value_dict, imp_key=None):
                             new_line = new_line + word + " "
                 else:
                     unknown_lines.append(line)
-        if len(unknown_lines) > 1:
+        if len(unknown_lines) > 0:
             for l in unknown_lines:
                 value_dict["unknown_comment"] = (
                     l
@@ -151,6 +151,46 @@ class Issue(Store):
                 "updated_at",
             ]
         )
+
+
+class Comment(Store):
+    def __init__(self, identity):
+        self.identity = identity
+        self.st_time = 0
+        self.et_time = 0
+        self._am_pm = 0
+        super().__init__(["body", "html_url", "user", "created_at", "updated_at"])
+
+    def setValue(self, variable, value):
+        if variable == "body":
+            # b = self.getValue("body")
+
+            self.__extract_time_info(value.getValue("unknown_comment"))
+            self.variable_value_dict["start-time"] = self.st_time
+            self.variable_value_dict["end-time"] = self.et_time
+            self.variable_value_dict["AM_PM"] = self._am_pm
+        super().setValue(variable, value)
+
+    def __extract_time_info(self, comment_data):
+        print("@@ : " + comment_data)
+        if comment_data:
+            words = comment_data.split(" ")
+            for w in words:
+
+                if w[0] == "/" and w[-1] == "/":
+
+                    time_infos = w[1:-1].split("-")
+                    # print(time_infos)
+                    self.st_time = time_infos[0]
+                    self.et_time = time_infos[1]
+                    self._am_pm = 0 if time_infos[2].upper() == "AM" else 1
+                    # print(self.st + " : " + self.et)
+
+
+class ComUser(Store):
+    def __init__(self, identity):
+        self.identity = identity
+        super().__init__(["login"])
 
 
 class Lable(Store):
@@ -395,3 +435,6 @@ Store.register_class("SubTasksList", SubTask)
 Store.register_class("labels", Lable)
 Store.register_class("milestone", Milestone)
 Store.register_class("assignees", Assignee)
+Store.register_class("comment", Comment)
+Store.register_class("user", ComUser)
+

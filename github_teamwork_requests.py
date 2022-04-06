@@ -109,19 +109,19 @@ def extract_info(inner_json, issue_obj, key):
         extract_info([inner_json], issue_obj, key)
 
 
-def extract_issue_info(issue_json):
-    issue_objs = []
-    if isinstance(issue_json, list):
+def extract_gh_json_info(r_json, store_key):
+    r_objs = []
+    if isinstance(r_json, list):
         j = 1
-        for item_contnent in issue_json:
-            current_obj = Store.getStoreByKey("issue", j)
+        for item_contnent in r_json:
+            current_obj = Store.getStoreByKey(store_key, j)
             for key in current_obj.variables:
                 extract_info(item_contnent, current_obj, key)
             j += 1
             print(current_obj)
-            issue_objs.append(current_obj)
+            r_objs.append(current_obj)
             print("!!!!!!!!!!!!!!!!!!\n\n")
-    return issue_objs
+    return r_objs
 
 
 def git_fetch(url, payload):
@@ -164,18 +164,21 @@ def convert_issues_to_tmwrk_task(gh_issues, tmwork_session, url):
 
 
 if __name__ == "__main__":
+    lastrun = "2022-04-06T10:00:00Z"
     git_issue_payload = {
         "User-Agent": "chaitanay",
         "Accept": "application/vnd.github.v3+json",
         "devchait": constant.gh_token,
         "state": "all",
+        "since": lastrun,
     }
     issues_urls = constant.gh_issue_url
-    print(issues_urls)
-    result = git_fetch(issues_urls, git_issue_payload)
+    result = git_fetch(constant.gh_issue_comment_url, git_issue_payload)
+    # print(result)
     # print_key_values(result)
+    extract_gh_json_info(result, "comment")
 
-    tmwork_session = get_tmwork_session(constant.tm_cmp_url, constant.tm_token)
-    tmwrk_task_cr_url = constant.tm_task_url
-    issue_objs = extract_issue_info(result)
-    convert_issues_to_tmwrk_task(issue_objs, tmwork_session, tmwrk_task_cr_url)
+    # tmwork_session = get_tmwork_session(constant.tm_cmp_url, constant.tm_token)
+    # tmwrk_task_cr_url = constant.tm_task_url
+    # issue_objs = extract_issue_info(result)
+    # convert_issues_to_tmwrk_task(issue_objs, tmwork_session, tmwrk_task_cr_url)
